@@ -33,3 +33,10 @@ test('Locator syntax rules', async ({ page }) => {
   // by exact text match 
   page.locator(':text-is("Combination Pliers")');
 });
+
+test('User facing locators', async({page}) => {
+  await page.getByPlaceholder('Search').click();
+  await page.getByPlaceholder('Search').fill("Hand Tools");
+  await page.getByRole('button', {name: "Search"}).click();
+  await expect (page.getByRole('heading', {name: "Searched for: Hand Tools"})).toBeVisible();
+})
