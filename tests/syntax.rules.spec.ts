@@ -40,3 +40,19 @@ test('User facing locators', async({page}) => {
   await page.getByRole('button', {name: "Search"}).click();
   await expect (page.getByRole('heading', {name: "Searched for: Hand Tools"})).toBeVisible();
 })
+
+test('Assertions', async({page}) => {
+  // general assertions
+  const result = 10 + 5;
+  expect(result).toEqual(15);
+
+  const element = page.locator('.col-md-9 .container').first().locator('.card-title');
+  const text = element.textContent();
+  expect(text).toEqual('Combination Pliers');
+
+  // locator assertions
+  await expect(element).toHaveText('Combination Pliers');
+
+  // soft assertions
+  await expect.soft(element).toHaveText('Combination Pliers');
+})
